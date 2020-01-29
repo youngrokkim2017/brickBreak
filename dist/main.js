@@ -90,10 +90,23 @@
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-eval("console.log(\"webpack is working\")\n\n//# sourceURL=webpack:///./src/index.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _paddle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./paddle */ \"./src/paddle.js\");\n// console.log(\"webpack is working\")\n\n// const Paddle = require('./paddle.js');\n\ndocument.addEventListener(\"DOMContentLoaded\", () => {\n    const canvas = document.getElementById(\"game-canvas\");\n    const ctx = canvas.getContext(\"2d\");\n\n    ctx.clearRect(0, 0, 800, 800);\n\n    const GAME_WIDTH = 800;\n    const GAME_HEIGHT = 600;\n\n    let paddle = new _paddle__WEBPACK_IMPORTED_MODULE_0__[\"default\"](GAME_WIDTH, GAME_HEIGHT);\n\n    paddle.draw(ctx);\n})\n\n//# sourceURL=webpack:///./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/paddle.js":
+/*!***********************!*\
+  !*** ./src/paddle.js ***!
+  \***********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\nclass Paddle {\n    constructor(gameWidth, gameHeight) {\n        this.width = 150;\n        this.height = 30;\n\n        this.position = {\n            x: gameWidth / 2 - this.width / 2,\n            y: gameHeight - this.height - 10,\n        };\n    }\n\n    draw(ctx) {\n        ctx.fillStyle = '#0f0';\n        ctx.fillRect(this.position.x, this.position.y, this.width, this.height);\n    }\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Paddle);\n\n//# sourceURL=webpack:///./src/paddle.js?");
 
 /***/ })
 
