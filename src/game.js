@@ -4,6 +4,13 @@ import Ball from './ball';
 import Brick from './brick';
 import { buildLevel, level1 } from './levels';
 
+const GAMESTATE = {
+    PAUSED: 0,
+    RUNNING: 1,
+    MENU: 2,
+    GAMEOVER: 3,
+}
+
 class Game {
     constructor(gameWidth, gameHeight) {
         this.gameWidth = gameWidth;
@@ -11,6 +18,8 @@ class Game {
     }
 
     start() {
+        this.gamestate = GAMESTATE.RUNNING;
+
         this.paddle = new Paddle(this);
         this.ball = new Ball(this);
 
@@ -27,10 +36,15 @@ class Game {
             ...bricks,
         ]
 
-        new InputHandler(this.paddle);
+        new InputHandler(this.paddle, this);
     }
 
     update(deltaTime) {
+        // PAUSING
+        if (this.gamestate === GAMESTATE.PAUSED) {
+            return
+        }
+
         // this.paddle.update(deltaTime);
         // this.ball.update(deltaTime);
 
@@ -44,6 +58,28 @@ class Game {
         // this.ball.draw(ctx);
 
         this.gameObjects.forEach((object) => object.draw(ctx));
+
+        // SCREEN WHEN PAUSED
+        if (this.gamestate === GAMESTATE.PAUSED) {
+            ctx.rect(0, 0, this.gameWidth, this.gameHeight);
+            ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+            ctx.fill();
+
+            ctx.font = "30px Arial";
+            ctx.fillStyle = "white";
+            ctx.textAlign = "center";
+            ctx.fillText("Paused", this.gameWidth / 2, this.gameHeight / 2);
+        }
+    }
+
+    togglePause() {
+        // game states
+
+        if (this.gamestate === GAMESTATE.PAUSED) {
+            this.gamestate = GAMESTATE.RUNNING;
+        } else {
+            this.gamestate = GAMESTATE.PAUSED;
+        }
     }
 }
 
