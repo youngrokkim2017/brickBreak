@@ -98,6 +98,18 @@ eval("__webpack_require__.r(__webpack_exports__);\nclass Ball {\n    constructor
 
 /***/ }),
 
+/***/ "./src/brick.js":
+/*!**********************!*\
+  !*** ./src/brick.js ***!
+  \**********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\nclass Brick {\n    constructor(game, position) {\n        this.image = document.getElementById('image-brick');\n\n        this.position = position;\n\n        this.width = 52;\n        this.height = 24;\n\n        this.game = game;\n    }\n\n    update() {\n\n    }\n\n    draw(ctx) {\n        ctx.drawImage(\n            this.image,\n            this.position.x,\n            this.position.y,\n            this.width,\n            this.height,\n        )\n    }\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Brick);\n\n//# sourceURL=webpack:///./src/brick.js?");
+
+/***/ }),
+
 /***/ "./src/game.js":
 /*!*********************!*\
   !*** ./src/game.js ***!
@@ -106,7 +118,7 @@ eval("__webpack_require__.r(__webpack_exports__);\nclass Ball {\n    constructor
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _paddle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./paddle */ \"./src/paddle.js\");\n/* harmony import */ var _input__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./input */ \"./src/input.js\");\n/* harmony import */ var _ball__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ball */ \"./src/ball.js\");\n\n\n\n\nclass Game {\n    constructor(gameWidth, gameHeight) {\n        this.gameWidth = gameWidth;\n        this.gameHeight = gameHeight;\n    }\n\n    start() {\n        this.paddle = new _paddle__WEBPACK_IMPORTED_MODULE_0__[\"default\"](this);\n        this.ball = new _ball__WEBPACK_IMPORTED_MODULE_2__[\"default\"](this);\n\n        this.gameObjects = [\n            this.ball,\n            this.paddle,\n        ]\n\n        new _input__WEBPACK_IMPORTED_MODULE_1__[\"default\"](this.paddle);\n    }\n\n    update(deltaTime) {\n        // this.paddle.update(deltaTime);\n        // this.ball.update(deltaTime);\n\n        this.gameObjects.forEach((object) => object.update(deltaTime));\n    }\n\n    draw(ctx) {\n        // this.paddle.draw(ctx);\n        // this.ball.draw(ctx);\n\n        this.gameObjects.forEach((object) => object.draw(ctx));\n    }\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Game);\n\n//# sourceURL=webpack:///./src/game.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _paddle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./paddle */ \"./src/paddle.js\");\n/* harmony import */ var _input__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./input */ \"./src/input.js\");\n/* harmony import */ var _ball__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ball */ \"./src/ball.js\");\n/* harmony import */ var _brick__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./brick */ \"./src/brick.js\");\n\n\n\n\n\nclass Game {\n    constructor(gameWidth, gameHeight) {\n        this.gameWidth = gameWidth;\n        this.gameHeight = gameHeight;\n    }\n\n    start() {\n        this.paddle = new _paddle__WEBPACK_IMPORTED_MODULE_0__[\"default\"](this);\n        this.ball = new _ball__WEBPACK_IMPORTED_MODULE_2__[\"default\"](this);\n\n        // let brick = new Brick(this, {x: 20, y: 20})\n        let bricks = [];\n        for (let i = 0; i < 10; i ++) {\n            bricks.push(new _brick__WEBPACK_IMPORTED_MODULE_3__[\"default\"](this, { x: i * 52, y: 30 }));\n        }\n\n        this.gameObjects = [\n            this.ball,\n            this.paddle,\n            ...bricks,\n        ]\n\n        new _input__WEBPACK_IMPORTED_MODULE_1__[\"default\"](this.paddle);\n    }\n\n    update(deltaTime) {\n        // this.paddle.update(deltaTime);\n        // this.ball.update(deltaTime);\n\n        this.gameObjects.forEach((object) => object.update(deltaTime));\n    }\n\n    draw(ctx) {\n        // this.paddle.draw(ctx);\n        // this.ball.draw(ctx);\n\n        this.gameObjects.forEach((object) => object.draw(ctx));\n    }\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Game);\n\n//# sourceURL=webpack:///./src/game.js?");
 
 /***/ }),
 
