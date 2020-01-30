@@ -86,6 +86,30 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/ball.js":
+/*!*********************!*\
+  !*** ./src/ball.js ***!
+  \*********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\nclass Ball {\n    constructor(game) {\n        this.image = document.getElementById('image-ball');\n\n        this.position = {\n            x: 10,\n            y: 10,\n        };\n\n        this.speed = {\n            x: 4,\n            y: 2,\n        };\n\n        this.size = 16;\n        this.gameWidth = game.gameWidth;\n        this.gameHeight = game.gameHeight;\n    }\n\n    draw(ctx) {\n        ctx.drawImage(this.image, this.position.x, this.position.y, this.size, this.size);\n    }\n\n    update(deltaTime) {\n        this.position.x += this.speed.x;\n        this.position.y += this.speed.y;\n\n        if (this.position.x + this.size > this.gameWidth || this.position.x < 0) {\n            this.speed.x = -this.speed.x;\n        }\n\n        if (this.position.y + this.size > this.gameHeight || this.position.y < 0) {\n            this.speed.y = -this.speed.y;\n        }\n    }\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Ball);\n\n//# sourceURL=webpack:///./src/ball.js?");
+
+/***/ }),
+
+/***/ "./src/game.js":
+/*!*********************!*\
+  !*** ./src/game.js ***!
+  \*********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _paddle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./paddle */ \"./src/paddle.js\");\n/* harmony import */ var _input__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./input */ \"./src/input.js\");\n/* harmony import */ var _ball__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ball */ \"./src/ball.js\");\n\n\n\n\nclass Game {\n    constructor(gameWidth, gameHeight) {\n        this.gameWidth = gameWidth;\n        this.gameHeight = gameHeight;\n    }\n\n    start() {\n        this.paddle = new _paddle__WEBPACK_IMPORTED_MODULE_0__[\"default\"](this);\n        this.ball = new _ball__WEBPACK_IMPORTED_MODULE_2__[\"default\"](this);\n\n        this.gameObjects = [\n            this.ball,\n            this.paddle,\n        ]\n\n        new _input__WEBPACK_IMPORTED_MODULE_1__[\"default\"](this.paddle);\n    }\n\n    update(deltaTime) {\n        // this.paddle.update(deltaTime);\n        // this.ball.update(deltaTime);\n\n        this.gameObjects.forEach((object) => object.update(deltaTime));\n    }\n\n    draw(ctx) {\n        // this.paddle.draw(ctx);\n        // this.ball.draw(ctx);\n\n        this.gameObjects.forEach((object) => object.draw(ctx));\n    }\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Game);\n\n//# sourceURL=webpack:///./src/game.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -94,7 +118,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _paddle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./paddle */ \"./src/paddle.js\");\n/* harmony import */ var _input__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./input */ \"./src/input.js\");\n// console.log(\"webpack is working\")\n\n// const Paddle = require('./paddle.js');\n\n\ndocument.addEventListener(\"DOMContentLoaded\", () => {\n    const canvas = document.getElementById(\"game-canvas\");\n    const ctx = canvas.getContext(\"2d\");\n\n    ctx.clearRect(0, 0, 800, 800);\n\n    const GAME_WIDTH = 800;\n    const GAME_HEIGHT = 600;\n\n    let paddle = new _paddle__WEBPACK_IMPORTED_MODULE_0__[\"default\"](GAME_WIDTH, GAME_HEIGHT);\n\n    paddle.draw(ctx);\n\n    new _input__WEBPACK_IMPORTED_MODULE_1__[\"default\"](paddle);\n\n    let lastTime = 0;\n\n    function gameLoop(timestamp) {\n        // calculates time passed\n        let deltaTime = timestamp - lastTime;\n        lastTime = timestamp;\n\n        ctx.clearRect(0, 0, 800, 600); // clears screen\n        paddle.update(deltaTime); // updates the paddle\n        paddle.draw(ctx); // redraws the paddle\n\n        requestAnimationFrame(gameLoop); // calls gameLoop again with the next timestamp\n    }\n\n    gameLoop();\n})\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _paddle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./paddle */ \"./src/paddle.js\");\n/* harmony import */ var _input__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./input */ \"./src/input.js\");\n/* harmony import */ var _ball__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ball */ \"./src/ball.js\");\n/* harmony import */ var _game__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./game */ \"./src/game.js\");\n// console.log(\"webpack is working\")\n\n\n\n\n\ndocument.addEventListener(\"DOMContentLoaded\", () => {\n    const canvas = document.getElementById(\"game-canvas\");\n    const ctx = canvas.getContext(\"2d\");\n\n    ctx.clearRect(0, 0, 800, 800);\n\n    const GAME_WIDTH = 800;\n    const GAME_HEIGHT = 600;\n\n    // let paddle = new Paddle(GAME_WIDTH, GAME_HEIGHT);\n    // let ball = new Ball(GAME_WIDTH, GAME_HEIGHT);\n\n    // new InputHandler(paddle);\n\n    let lastTime = 0;\n\n    let game = new _game__WEBPACK_IMPORTED_MODULE_3__[\"default\"](GAME_WIDTH, GAME_HEIGHT);\n    game.start();\n\n    // images\n    // let imgBall = document.getElementById('image-ball');\n\n    function gameLoop(timestamp) {\n        // calculates time passed\n        let deltaTime = timestamp - lastTime;\n        lastTime = timestamp;\n\n        ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT); // clears screen\n\n        // paddle.update(deltaTime); // updates the paddle\n        // paddle.draw(ctx); // redraws the paddle\n\n        // ball.update(deltaTime);\n        // ball.draw(ctx);\n\n        game.update(deltaTime);\n        game.draw(ctx);\n\n        // ctx.drawImage(imgBall, 10, 10, 16, 16);\n\n        requestAnimationFrame(gameLoop); // calls gameLoop again with the next timestamp\n    }\n\n    // gameLoop();\n    requestAnimationFrame(gameLoop); // calls gameLoop again with the next timestamp\n\n})\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 
@@ -118,7 +142,7 @@ eval("__webpack_require__.r(__webpack_exports__);\nclass InputHandler {\n    con
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\nclass Paddle {\n    constructor(gameWidth, gameHeight) {\n        this.gameWidth = gameWidth;\n        this.width = 150;\n        this.height = 30;\n\n        this.maxSpeed = 7;\n        this.speed = 0\n\n        this.position = {\n            x: gameWidth / 2 - this.width / 2,\n            y: gameHeight - this.height - 10,\n        };\n    }\n\n    moveLeft() {\n        this.speed = -this.maxSpeed\n    }\n\n    moveRight() {\n        this.speed = this.maxSpeed;\n    }\n\n    stop() {\n        this.speed = 0;\n    }\n\n    draw(ctx) {\n        ctx.fillStyle = '#0f0';\n        ctx.fillRect(this.position.x, this.position.y, this.width, this.height);\n    }\n\n    update(deltaTime) {\n        // deltaTime is the change in time\n\n        if (!deltaTime) return;\n\n        // this.position.x += 5 / deltaTime;\n\n        this.position.x += this.speed;\n\n        if (this.position.x < 0) this.position.x = 0;\n        if (this.position.x + this.width > this.gameWidth) this.position.x = this.gameWidth - this.width;\n    }\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Paddle);\n\n//# sourceURL=webpack:///./src/paddle.js?");
+eval("__webpack_require__.r(__webpack_exports__);\nclass Paddle {\n    constructor(game) {\n        this.gameWidth = game.gameWidth;\n        this.width = 150;\n        this.height = 30;\n\n        this.maxSpeed = 7;\n        this.speed = 0\n\n        this.position = {\n            x: game.gameWidth / 2 - this.width / 2,\n            y: game.gameHeight - this.height - 10,\n        };\n    }\n\n    moveLeft() {\n        this.speed = -this.maxSpeed\n    }\n\n    moveRight() {\n        this.speed = this.maxSpeed;\n    }\n\n    stop() {\n        this.speed = 0;\n    }\n\n    draw(ctx) {\n        ctx.fillStyle = '#0f0';\n        ctx.fillRect(this.position.x, this.position.y, this.width, this.height);\n    }\n\n    update(deltaTime) {\n        // deltaTime is the change in time\n\n        // if (!deltaTime) return;\n\n        // this.position.x += 5 / deltaTime;\n\n        this.position.x += this.speed;\n\n        if (this.position.x < 0) this.position.x = 0;\n        if (this.position.x + this.width > this.gameWidth) this.position.x = this.gameWidth - this.width;\n    }\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Paddle);\n\n//# sourceURL=webpack:///./src/paddle.js?");
 
 /***/ })
 

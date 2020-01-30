@@ -1,6 +1,6 @@
 class Paddle {
-    constructor(gameWidth, gameHeight) {
-        this.gameWidth = gameWidth;
+    constructor(game) {
+        this.gameWidth = game.gameWidth;
         this.width = 150;
         this.height = 30;
 
@@ -8,8 +8,8 @@ class Paddle {
         this.speed = 0
 
         this.position = {
-            x: gameWidth / 2 - this.width / 2,
-            y: gameHeight - this.height - 10,
+            x: game.gameWidth / 2 - this.width / 2,
+            y: game.gameHeight - this.height - 10,
         };
     }
 
@@ -33,7 +33,7 @@ class Paddle {
     update(deltaTime) {
         // deltaTime is the change in time
 
-        if (!deltaTime) return;
+        // if (!deltaTime) return;
 
         // this.position.x += 5 / deltaTime;
 
