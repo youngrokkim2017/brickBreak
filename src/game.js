@@ -46,7 +46,7 @@ class Game {
         // }
 
         // fix SPACEBAR reset
-        if (this.gamestate !== GAMESTATE.MENU && this.gamestate !== GAMESTATE.NEWLEVEL) return;
+        if (this.gamestate !== GAMESTATE. MENU && this.gamestate !== GAMESTATE.NEWLEVEL) return;
 
         // let bricks = buildLevel(this, level1);
         this.bricks = buildLevel(this, this.levels[this.currentLevel]);
