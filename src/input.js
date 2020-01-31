@@ -14,6 +14,9 @@ class InputHandler {
                     // esc key used to pause game
                     game.togglePause();
                     break;
+                case 32:
+                    game.start();
+                    break;
             }
         });
 

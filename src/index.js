@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let lastTime = 0;
 
     let game = new Game(GAME_WIDTH, GAME_HEIGHT);
-    game.start();
+    // game.start();
 
     // images
     // let imgBall = document.getElementById('image-ball');
